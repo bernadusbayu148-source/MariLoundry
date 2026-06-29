@@ -3,89 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir MariLoundry</title>
+    <title>MariLoundry | Kasir POS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #0056b3; }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 15px; margin-top: 20px; background-color: #25d366; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #128c7e; }
+        :root { --primary: #0056b3; --accent: #25d366; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
+        .card { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 5px; color: #333; }
+        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        button:hover { filter: brightness(0.9); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>MariLoundry POS</h2>
-    
-    <label>Nama Pelanggan:</label>
-    <input type="text" id="nama" placeholder="Contoh: Pak Bayu">
-
-    <label>Layanan:</label>
-    <select id="layanan">
-        <option value="7000|Cuci Lipat Reguler">Cuci Lipat Reguler (Rp7.000/kg)</option>
-        <option value="8000|Cuci Setrika Reguler">Cuci Setrika Reguler (Rp8.000/kg)</option>
-        <!-- Anda bisa menambahkan item lain dari Price List di sini -->
-    </select>
-
-    <label>Berat (KG):</label>
-    <input type="number" id="berat" placeholder="Contoh: 4.9" step="0.1">
-
-    <button onclick="kirimWhatsApp()">Buat Nota & Kirim WA</button>
+<div class="card">
+    <h2><i class="fas fa-tshirt"></i> MariLoundry POS</h2>
+    <div class="form-group">
+        <label>Nama Pelanggan</label>
+        <input type="text" id="nama" placeholder="Masukkan nama pelanggan">
+    </div>
+    <div class="form-group">
+        <label>Layanan</label>
+        <select id="layanan">
+            <option value="7000|Cuci Lipat">Cuci Lipat Reguler (Rp7.000/kg)</option>
+            <option value="8000|Cuci Setrika">Cuci Setrika Reguler (Rp8.000/kg)</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Berat (KG)</label>
+        <input type="number" id="berat" placeholder="0.0">
+    </div>
+    <button onclick="kirimWhatsApp()"><i class="fab fa-whatsapp"></i> Buat Nota & Kirim WA</button>
 </div>
 
-<script>
-    function kirimWhatsApp() {
-        const nama = document.getElementById('nama').value;
-        const layananData = document.getElementById('layanan').value.split('|');
-        const hargaPerKg = parseFloat(layananData[0]);
-        const namaLayanan = layananData[1];
-        const berat = parseFloat(document.getElementById('berat').value);
-        
-        if (!nama || !berat) { alert("Mohon lengkapi data!"); return; }
-
-        const total = hargaPerKg * berat;
-        const tgl = new Date().toLocaleDateString('id-ID');
-        const jam = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-        const nota = "CZN" + Date.now().toString().slice(-12);
-
-        // Format Pesan
-        const pesan = `FAKTUR ELEKTRONIK TRANSAKSI REGULER
-LEKAS LAUNDRY MAMPANG 
-Jl Mampang Prapatan VIII RT 01 RW 01 No 8A 
-6281385081756 
-
-Nomor Nota : ${nota}
-Pelanggan Yth : ${nama}
-Terima : ${tgl} ${jam}
-Selesai : 03/07/2026 ${jam}
-
-======================
-Detail pesanan:
-Layanan:
-✅ ${namaLayanan}, ${berat} KG
-@ Rp${hargaPerKg.toLocaleString('id-ID')}, Total Rp${total.toLocaleString('id-ID')}
-
-==============
-Detail biaya : 
-Total tagihan : Rp${total.toLocaleString('id-ID')}
-Grand total : Rp${total.toLocaleString('id-ID')}
-
-Pembayaran: 
-💵 Transfer Rp${total.toLocaleString('id-ID')}
-
-Status: Lunas
-
-=================
-https://kertas.smartlink.id/nota/n/${nota}
-
-Terima kasih.`;
-
-        const waUrl = `https://wa.me/6281385081756?text=${encodeURIComponent(pesan)}`;
-        window.open(waUrl, '_blank');
-    }
-</script>
-
+<script src="js/script.js"></script>
 </body>
 </html>
