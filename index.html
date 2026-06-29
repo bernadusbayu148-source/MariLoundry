@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MariLoundry | Kasir POS</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>MariLoundry POS</title>
     <style>
-        :root { --primary: #0056b3; --accent: #25d366; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        .card { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: var(--primary); text-align: center; margin-bottom: 25px; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin-bottom: 5px; color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; margin: 0; }
+        
+        /* Navbar */
+        .navbar { background: #0056b3; padding: 15px; color: white; display: flex; gap: 20px; justify-content: center; }
+        .navbar a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 4px; }
+        .navbar a:hover { background: #004494; }
+
+        /* Card */
+        .container { max-width: 600px; margin: 30px auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; margin-top: 0; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
         input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        button:hover { filter: brightness(0.9); }
+        
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; color: white; }
+        .btn-wa { background: #25d366; }
+        .btn-add { background: #0056b3; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h2><i class="fas fa-tshirt"></i> MariLoundry POS</h2>
+<!-- Navbar Navigasi -->
+<div class="navbar">
+    <a href="index.html">Kasir</a>
+    <a href="proses.html">Orderan Masuk</a>
+    <a href="selesai.html">Selesai</a>
+</div>
+
+<div class="container">
+    <h2><i class="fas fa-tshirt"></i> Input Order Baru</h2>
+    
     <div class="form-group">
         <label>Nama Pelanggan</label>
-        <input type="text" id="nama" placeholder="Masukkan nama pelanggan">
+        <input type="text" id="nama" placeholder="Nama lengkap">
     </div>
+    
     <div class="form-group">
         <label>Layanan</label>
         <select id="layanan">
@@ -32,11 +49,13 @@
             <option value="8000|Cuci Setrika">Cuci Setrika Reguler (Rp8.000/kg)</option>
         </select>
     </div>
+
     <div class="form-group">
         <label>Berat (KG)</label>
         <input type="number" id="berat" placeholder="0.0">
     </div>
-    <button onclick="kirimWhatsApp()"><i class="fab fa-whatsapp"></i> Buat Nota & Kirim WA</button>
+
+    <button class="btn btn-wa" onclick="kirimWhatsApp()">Buat Nota & Kirim WA</button>
 </div>
 
 <script src="js/script.js"></script>
